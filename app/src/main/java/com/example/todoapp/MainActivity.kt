@@ -20,6 +20,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val file = File(this.filesDir, "items.json")
+        val fileStorage = FileStorage(file)
+        val item1 = ToDoItem(text = "Дело 1",
+                             color = Color.Red,
+                             importance = Importance.hight,
+                             deadline = LocalDateTime.now())
+        val item2 = ToDoItem(text = "Дело 2",
+                             importance = Importance.medium)
+        Log.d("My logs", fileStorage.itemList.toString())
+        fileStorage.addItem(item1)
+        fileStorage.addItem(item2)
+        Log.d("My logs", fileStorage.itemList.toString())
+        fileStorage.saveItems()
+        fileStorage.removeItem(item1.uid)
+        Log.d("My logs", fileStorage.itemList.toString())
+        fileStorage.loadFromFile()
+        Log.d("My logs", fileStorage.itemList.toString())
+
         setContent {
             ToDoAppTheme {
                 // A surface container using the 'background' color from the theme
