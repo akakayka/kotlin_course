@@ -46,34 +46,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFFF6B6B),       // Светло-алый
-    onPrimary = Color.Black,           // Черный текст на алом
-    primaryContainer = Color(0xFF8B0000), // Темно-красный контейнер
-    onPrimaryContainer = Color(0xFFFFCDD2), // Светло-розовый текст в контейнере
 
-    secondary = Color(0xFFFF8A80),     // Светло-красный
-    onSecondary = Color.Black,
-    secondaryContainer = Color(0xFF5A0000),
-    onSecondaryContainer = Color(0xFFFFE0E0),
-
-    tertiary = Color(0xFFFFAB91),      // Светло-оранжево-красный
-    onTertiary = Color.Black,
-    tertiaryContainer = Color(0xFF6B0000),
-    onTertiaryContainer = Color(0xFFFFDADA),
-
-    background = Color(0xFF121212),    // Темный фон
-    onBackground = Color(0xFFE6E1E5),  // Светлый текст
-
-    surface = Color(0xFF1E1E1E),       // Темная поверхность
-    onSurface = Color(0xFFE6E1E5),     // Светлый текст на поверхности
-
-    surfaceVariant = Color(0xFF2D2D2D), // Темно-серый вариант поверхности
-    onSurfaceVariant = Color(0xFFCAC4D0), // Светло-серый текст
-
-    outline = Color(0xFF938F99),       // Серый контур
-    outlineVariant = Color(0xFF444746) // Темно-серый вариант контура
-)
 
 @Composable
 fun ToDoAppTheme(
@@ -82,21 +55,14 @@ fun ToDoAppTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = LightColorScheme // Всегда используем светлую тему
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
