@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.todoapp.screens.ItemScreen
 import com.example.todoapp.ui.theme.ToDoAppTheme
 import java.io.File
 import java.time.LocalDateTime
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting()
+                    ItemScreen()
                 }
             }
         }
